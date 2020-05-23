@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './styled';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function Repositories() {
@@ -8,11 +9,11 @@ function Repositories() {
   const [ repositories, setRepositories ] = useState([]);
 
   useEffect(() => {
-    let repositoriesName = localStorage.getItem('repositoriesName');
+    let repositoryData = localStorage.getItem('repositoryData');
     
-    if(repositoriesName !== null) {
-      repositoriesName = JSON.parse(repositoriesName);
-      setRepositories(repositoriesName);
+    if(repositoryData !== null) {
+      repositoryData = JSON.parse(repositoryData);
+      setRepositories(repositoryData);
       localStorage.clear();
     } else {
       history.push('/');
@@ -25,7 +26,8 @@ function Repositories() {
       <S.List>
         { repositories.map(repository => {
           return (
-            <S.ListItem key={repository}>Repositório: {repository}</S.ListItem>
+            //<S.ListItem key={repository.name}>Repositório: {repository.name}</S.ListItem>
+            <S.ListItem key={repository.name}><S.LinkItem href={repository.html_url} target="_blank">Repositório: {repository.name}</S.LinkItem></S.ListItem>
           )
         }) }
       </S.List>

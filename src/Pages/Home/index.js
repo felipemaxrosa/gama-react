@@ -11,18 +11,26 @@ function App(props) {
   async function handlePesquisa() {
     await axios.get(`https://api.github.com/users/${usuario}/repos`)
       .then(response => {
-        const repositories = response.data;
-        const repositoriesName = [];
-        
-        repositories.map((repository) => {
-          repositoriesName.push(repository.name)
+        let repositories = response.data;
+        //console.log(repositories);
+
+        let repositoryData = [];
+
+        repositoryData = repositories.map((repository) => {
+          const { id, name, html_url } = repository;
+          return {
+            id,
+            name,
+            html_url
+          }
         });
         
-        localStorage.setItem('repositoriesName', JSON.stringify(repositoriesName));
+        localStorage.setItem('repositoryData', JSON.stringify(repositoryData));
         setErro(false);
         history.push('/repositories');
       })
       .catch(err => {
+        console.log(err);
         setErro(true);
       });
   }

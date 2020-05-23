@@ -40,3 +40,9 @@ export const LinkHome = styled(Link)`
   color: #fff;
   text-decoration: none;
 `;
+
+export const LinkItem = styled.a`
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+`;
